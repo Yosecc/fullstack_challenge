@@ -60,7 +60,13 @@ cd flullstack_challenge
 # Backend
 cp backend/.env.example backend/.env
 
-# Frontend (ya está configurado en este proyecto)
+# Credenciales de base de datos
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=tareas_db
+DB_USERNAME=laravel
+DB_PASSWORD=secret
 ```
 
 ### 3. Levantar el entorno con Docker
