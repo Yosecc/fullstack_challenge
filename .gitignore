@@ -5,6 +5,7 @@
 /backend/.env.backup
 /backend/.phpunit.result.cache
 /backend/storage/*.key
+/backend/storage/.migrated
 /backend/storage/app/*
 !/backend/storage/app/.gitignore
 /backend/storage/framework/cache/*

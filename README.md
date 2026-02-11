@@ -81,6 +81,17 @@ Esto levantará 4 contenedores:
 - **Frontend (Vue)** → Puerto 5173
 - **Adminer** → Puerto 8080
 
+> **⚠️ Nota:** Si  las migraciones no se ejecutan automáticamente, elimina el archivo marcador:
+> ```bash
+> rm backend/storage/.migrated
+> docker-compose restart backend
+> ```
+> O fuerza la recreación completa con:
+> ```bash
+> docker-compose down -v
+> docker-compose up --build
+> ```
+
 ---
 
 ## 🎮 Uso de la Aplicación
