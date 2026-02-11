@@ -31,8 +31,17 @@ if [ ! -f "composer.json" ]; then\n\
     chown -R www-data:www-data /var/www\n\
 fi\n\
 composer install\n\
+if [ ! -f ".env" ]; then\n\
+    cp .env.example .env\n\
+fi\n\
 php artisan key:generate --force\n\
-php artisan migrate --force\n\
+if [ ! -f "/var/www/storage/.migrated" ]; then\n\
+    echo "Primera ejecución: ejecutando migraciones y seeders..."\n\
+    php artisan migrate:fresh --seed --force\n\
+    touch /var/www/storage/.migrated\n\
+else\n\
+    echo "Migraciones ya ejecutadas anteriormente"\n\
+fi\n\
 php artisan serve --host=0.0.0.0 --port=8000\n\
 ' > /entrypoint.sh && chmod +x /entrypoint.sh
 

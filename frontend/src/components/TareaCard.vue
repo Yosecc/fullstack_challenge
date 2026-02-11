@@ -33,9 +33,6 @@
     </div>
 
     <div class="tarea-actions">
-      <button @click="$emit('cambiar-estado')" class="btn btn-sm btn-secondary">
-        Cambiar Estado
-      </button>
       <button @click="$emit('editar')" class="btn btn-sm btn-primary">
         Editar
       </button>

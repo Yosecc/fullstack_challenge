@@ -58,8 +58,6 @@ services:
       - backend
     networks:
       - tareas_network
-    environment:
-      # VITE_API_URL: http://localhost:8000/api
     
   # Adminer - Gestor de Base de Datos
   adminer:
