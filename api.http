@@ -1,0 +1,71 @@
+### Variables
+@baseUrl = http://localhost:8000/api
+
+### ============================================
+### TAREAS - Listar todas
+### ============================================
+GET {{baseUrl}}/tareas
+
+### ============================================
+### TAREAS - Listar con filtro por estado
+### ============================================
+GET {{baseUrl}}/tareas?estado=pendiente
+
+### ============================================
+### TAREAS - Listar con filtro por prioridad
+### ============================================
+GET {{baseUrl}}/tareas?prioridad_id=3
+
+### ============================================
+### TAREAS - Listar con filtro por etiqueta
+### ============================================
+GET {{baseUrl}}/tareas?etiqueta_id=1
+
+### ============================================
+### TAREAS - Ver tarea específica
+### ============================================
+GET {{baseUrl}}/tareas/1
+
+### ============================================
+### TAREAS - Crear nueva tarea
+### ============================================
+POST {{baseUrl}}/tareas
+Content-Type: application/json
+
+{
+  "titulo": "Nueva tarea desde REST Client",
+  "descripcion": "Esta es una tarea de prueba",
+  "estado": "pendiente",
+  "prioridad_id": 2,
+  "fecha_vencimiento": "2026-02-20",
+  "etiquetas": [1, 2]
+}
+
+### ============================================
+### TAREAS - Actualizar tarea
+### ============================================
+PUT {{baseUrl}}/tareas/1
+Content-Type: application/json
+
+{
+  "titulo": "Tarea actualizada",
+  "descripcion": "Descripción actualizada",
+  "estado": "en_progreso",
+  "prioridad_id": 3,
+  "etiquetas": [1]
+}
+
+### ============================================
+### TAREAS - Eliminar tarea
+### ============================================
+DELETE {{baseUrl}}/tareas/5
+
+### ============================================
+### PRIORIDADES - Listar todas
+### ============================================
+GET {{baseUrl}}/prioridades
+
+### ============================================
+### ETIQUETAS - Listar todas
+### ============================================
+GET {{baseUrl}}/etiquetas
