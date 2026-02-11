@@ -1,13 +1,17 @@
 <template>
-  <div id="app">
-    <header>
-      <h1>📋 Gestión de Tareas</h1>
-      <nav>
-        <RouterLink to="/">Inicio</RouterLink>
-        <RouterLink to="/about">Acerca de</RouterLink>
+  <div id="app" class="min-h-screen flex flex-col">
+    <header class="bg-emerald-500 text-white px-8 py-4 mb-8">
+      <h1 class="text-2xl font-bold mb-4">📋 Gestión de Tareas</h1>
+      <nav class="flex gap-4">
+        <RouterLink to="/" class="px-4 py-2 rounded hover:bg-white/10 transition router-link">
+          Inicio
+        </RouterLink>
+        <RouterLink to="/about" class="px-4 py-2 rounded hover:bg-white/10 transition router-link">
+          Acerca de
+        </RouterLink>
       </nav>
     </header>
-    <main>
+    <main class="px-8 flex-1">
       <RouterView />
     </main>
   </div>
@@ -17,39 +21,8 @@
 import { RouterLink, RouterView } from 'vue-router'
 </script>
 
-<style scoped>
-header {
-  background: #42b983;
-  color: white;
-  padding: 1rem 2rem;
-  margin-bottom: 2rem;
-}
-
-header h1 {
-  margin: 0 0 1rem 0;
-}
-
-nav {
-  display: flex;
-  gap: 1rem;
-}
-
-nav a {
-  color: white;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-}
-
-nav a:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-nav a.router-link-active {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-main {
-  padding: 0 2rem;
+<style>
+.router-link.router-link-active {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 </style>

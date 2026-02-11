@@ -1,8 +1,8 @@
 <template>
-  <div class="home">
-    <div class="home-header">
-      <h2>Gestión de Tareas</h2>
-      <button @click="showModal = true" class="btn btn-primary">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex justify-between items-center mb-8">
+      <h2 class="text-2xl font-semibold text-gray-900">Gestión de Tareas</h2>
+      <button @click="showModal = true" class="px-5 py-2.5 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition font-medium">
         + Nueva Tarea
       </button>
     </div>
@@ -17,17 +17,17 @@
     />
 
     <!-- Loading -->
-    <div v-if="store.loading && !store.tareas.length" class="loading">
+    <div v-if="store.loading && !store.tareas.length" class="text-center py-12 text-gray-500">
       Cargando tareas...
     </div>
 
     <!-- Error -->
-    <div v-if="store.error" class="error-message">
+    <div v-if="store.error" class="text-center py-3 px-4 bg-red-50 text-red-600 rounded-lg mb-4">
       {{ store.error }}
     </div>
 
     <!-- Lista de tareas -->
-    <div v-if="store.tareasFiltradas.length" class="tareas-list">
+    <div v-if="store.tareasFiltradas.length" class="flex flex-col">
       <TareaCard 
         v-for="tarea in store.tareasFiltradas" 
         :key="tarea.id"
@@ -39,9 +39,9 @@
     </div>
 
     <!-- Sin tareas -->
-    <div v-else-if="!store.loading" class="empty-state">
-      <p>No hay tareas {{ store.filters.estado ? 'con ese filtro' : 'aún' }}</p>
-      <button @click="store.clearFilters()" class="btn btn-secondary">
+    <div v-else-if="!store.loading" class="text-center py-12 bg-white rounded-lg shadow-sm">
+      <p class="text-gray-500 mb-4">No hay tareas {{ store.filters.estado ? 'con ese filtro' : 'aún' }}</p>
+      <button @click="store.clearFilters()" class="px-5 py-2.5 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition font-medium">
         Ver todas
       </button>
     </div>
@@ -58,33 +58,33 @@
     />
 
     <!-- Modal cambiar estado -->
-    <div v-if="showEstadoModal" class="modal-overlay" @click.self="showEstadoModal = false">
-      <div class="modal-content modal-small">
-        <h3>Cambiar Estado</h3>
-        <div class="estado-options">
+    <div v-if="showEstadoModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" @click.self="showEstadoModal = false">
+      <div class="bg-white rounded-lg p-6 w-full max-w-sm">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Cambiar Estado</h3>
+        <div class="flex flex-col gap-3 mb-4">
           <button 
             @click="actualizarEstado('pendiente')" 
-            class="btn btn-block"
-            :class="{'btn-primary': tareaEstado?.estado !== 'pendiente'}"
+            class="w-full px-4 py-2.5 rounded-md font-medium transition"
+            :class="tareaEstado?.estado !== 'pendiente' ? 'bg-blue-500 text-white hover:bg-blue-600' : 'bg-gray-200 text-gray-700'"
           >
             Pendiente
           </button>
           <button 
             @click="actualizarEstado('en_progreso')" 
-            class="btn btn-block"
-            :class="{'btn-primary': tareaEstado?.estado !== 'en_progreso'}"
+            class="w-full px-4 py-2.5 rounded-md font-medium transition"
+            :class="tareaEstado?.estado !== 'en_progreso' ? 'bg-blue-500 text-white hover:bg-blue-600' : 'bg-gray-200 text-gray-700'"
           >
             En Progreso
           </button>
           <button 
             @click="actualizarEstado('completada')" 
-            class="btn btn-block"
-            :class="{'btn-primary': tareaEstado?.estado !== 'completada'}"
+            class="w-full px-4 py-2.5 rounded-md font-medium transition"
+            :class="tareaEstado?.estado !== 'completada' ? 'bg-blue-500 text-white hover:bg-blue-600' : 'bg-gray-200 text-gray-700'"
           >
             Completada
           </button>
         </div>
-        <button @click="showEstadoModal = false" class="btn btn-secondary btn-block">
+        <button @click="showEstadoModal = false" class="w-full px-4 py-2.5 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition font-medium">
           Cancelar
         </button>
       </div>
@@ -165,118 +165,3 @@ const actualizarEstado = async (nuevoEstado) => {
 }
 </script>
 
-<style scoped>
-.home {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.home-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
-.home-header h2 {
-  margin: 0;
-  color: #1f2937;
-}
-
-.btn {
-  padding: 0.625rem 1.25rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.9375rem;
-  font-weight: 500;
-  transition: all 0.2s;
-}
-
-.btn-primary {
-  background: #3b82f6;
-  color: white;
-}
-
-.btn-primary:hover {
-  background: #2563eb;
-}
-
-.btn-secondary {
-  background: #e5e7eb;
-  color: #374151;
-}
-
-.btn-secondary:hover {
-  background: #d1d5db;
-}
-
-.btn-block {
-  width: 100%;
-}
-
-.loading, .error-message, .empty-state {
-  text-align: center;
-  padding: 3rem;
-  color: #6b7280;
-}
-
-.error-message {
-  color: #ef4444;
-  background: #fee2e2;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-}
-
-.empty-state {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.empty-state button {
-  margin-top: 1rem;
-}
-
-.tareas-list {
-  display: flex;
-  flex-direction: column;
-}
-
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  padding: 1rem;
-}
-
-.modal-content {
-  background: white;
-  border-radius: 8px;
-  padding: 1.5rem;
-}
-
-.modal-small {
-  width: 100%;
-  max-width: 400px;
-}
-
-.modal-small h3 {
-  margin: 0 0 1rem 0;
-  color: #1f2937;
-}
-
-.estado-options {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-}
-</style>

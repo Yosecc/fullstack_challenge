@@ -172,10 +172,10 @@ Content-Type: application/json
 ### ✅ Implementadas
 
 1. **Diseño Visual Moderno**
-   - CSS personalizado con variables CSS
+   - Tailwind CSS v3.4 para estilosUtilIty-first
    - Diseño responsive (mobile-first)
    - Paleta de colores consistente
-   - Gradientes y sombras elegantes
+   - Componentes estilizados con clases de Tailwind
 
 2. **Manejo de Errores**
    - Interceptores de Axios

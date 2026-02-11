@@ -1,42 +1,62 @@
 <template>
-  <div class="tarea-card" :class="`estado-${tarea.estado}`">
-    <div class="tarea-header">
-      <h3>{{ tarea.titulo }}</h3>
-      <span class="badge" :class="`badge-${tarea.estado}`">
+  <div 
+    class="bg-white rounded-lg p-6 shadow-md mb-4 border-l-4 transition-all"
+    :class="{
+      'border-amber-500': tarea.estado === 'pendiente',
+      'border-blue-500': tarea.estado === 'en_progreso',
+      'border-green-500 opacity-80': tarea.estado === 'completada'
+    }"
+  >
+    <div class="flex justify-between items-start mb-2">
+      <h3 class="text-lg font-semibold text-gray-800">{{ tarea.titulo }}</h3>
+      <span 
+        class="px-3 py-1 rounded-full text-xs font-semibold uppercase"
+        :class="{
+          'bg-amber-100 text-amber-800': tarea.estado === 'pendiente',
+          'bg-blue-100 text-blue-800': tarea.estado === 'en_progreso',
+          'bg-green-100 text-green-800': tarea.estado === 'completada'
+        }"
+      >
         {{ estadoLabel }}
       </span>
     </div>
 
-    <p class="descripcion" v-if="tarea.descripcion">
+    <p class="text-slate-600 my-2 text-sm" v-if="tarea.descripcion">
       {{ tarea.descripcion }}
     </p>
 
-    <div class="tarea-meta">
-      <div class="prioridad" v-if="tarea.prioridad">
-        <strong>Prioridad:</strong> {{ tarea.prioridad.prioridad }}
+    <div class="flex flex-wrap gap-4 mb-4 text-sm text-slate-600">
+      <div v-if="tarea.prioridad">
+        <strong class="font-semibold text-slate-700">Prioridad:</strong> {{ tarea.prioridad.prioridad }}
       </div>
 
-      <div class="fecha" v-if="tarea.fecha_vencimiento">
-        <strong>Vence:</strong> {{ formatDate(tarea.fecha_vencimiento) }}
+      <div v-if="tarea.fecha_vencimiento">
+        <strong class="font-semibold text-slate-700">Vence:</strong> {{ formatDate(tarea.fecha_vencimiento) }}
       </div>
 
-      <div class="etiquetas" v-if="tarea.etiquetas && tarea.etiquetas.length">
-        <strong>Etiquetas:</strong>
+      <div class="flex items-center gap-2 flex-wrap" v-if="tarea.etiquetas && tarea.etiquetas.length">
+        <strong class="font-semibold text-slate-700">Etiquetas:</strong>
         <span 
           v-for="etiqueta in tarea.etiquetas" 
           :key="etiqueta.id"
-          class="etiqueta-badge"
+          class="bg-indigo-100 text-indigo-800 px-2 py-1 rounded text-xs font-medium"
         >
           {{ etiqueta.etiqueta }}
         </span>
       </div>
     </div>
 
-    <div class="tarea-actions">
-      <button @click="$emit('editar')" class="btn btn-sm btn-primary">
+    <div class="flex gap-2 flex-wrap">
+      <button 
+        @click="$emit('editar')" 
+        class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors text-sm font-medium"
+      >
         Editar
       </button>
-      <button @click="$emit('eliminar')" class="btn btn-sm btn-danger">
+      <button 
+        @click="$emit('eliminar')" 
+        class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors text-sm font-medium"
+      >
         Eliminar
       </button>
     </div>
@@ -73,146 +93,3 @@ const formatDate = (date) => {
 }
 </script>
 
-<style scoped>
-.tarea-card {
-  background: white;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  margin-bottom: 1rem;
-  border-left: 4px solid #ddd;
-}
-
-.tarea-card.estado-pendiente {
-  border-left-color: #f59e0b;
-}
-
-.tarea-card.estado-en_progreso {
-  border-left-color: #3b82f6;
-}
-
-.tarea-card.estado-completada {
-  border-left-color: #10b981;
-  opacity: 0.8;
-}
-
-.tarea-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-  margin-bottom: 0.5rem;
-}
-
-.tarea-header h3 {
-  margin: 0;
-  font-size: 1.1rem;
-  color: #2c3e50;
-}
-
-.badge {
-  padding: 0.25rem 0.75rem;
-  border-radius: 12px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.badge-pendiente {
-  background: #fef3c7;
-  color: #92400e;
-}
-
-.badge-en_progreso {
-  background: #dbeafe;
-  color: #1e3a8a;
-}
-
-.badge-completada {
-  background: #d1fae5;
-  color: #065f46;
-}
-
-.descripcion {
-  color: #64748b;
-  margin: 0.5rem 0 1rem;
-  font-size: 0.9rem;
-}
-
-.tarea-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 1rem;
-  font-size: 0.875rem;
-  color: #475569;
-}
-
-.tarea-meta strong {
-  font-weight: 600;
-  color: #334155;
-}
-
-.etiquetas {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.etiqueta-badge {
-  background: #e0e7ff;
-  color: #3730a3;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 500;
-}
-
-.tarea-actions {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.btn {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: all 0.2s;
-}
-
-.btn-sm {
-  padding: 0.375rem 0.75rem;
-  font-size: 0.8125rem;
-}
-
-.btn-primary {
-  background: #3b82f6;
-  color: white;
-}
-
-.btn-primary:hover {
-  background: #2563eb;
-}
-
-.btn-secondary {
-  background: #64748b;
-  color: white;
-}
-
-.btn-secondary:hover {
-  background: #475569;
-}
-
-.btn-danger {
-  background: #ef4444;
-  color: white;
-}
-
-.btn-danger:hover {
-  background: #dc2626;
-}
-</style>
